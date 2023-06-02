@@ -116,6 +116,8 @@ type Watcher struct {
 	//                      link to an inode is removed). On kqueue it's sent
 	//                      and on kqueue when a file is truncated. On Windows
 	//                      it's never sent.
+
+	//   fsnotify.Close
 	Events chan Event
 
 	// Errors sends any errors.
@@ -358,7 +360,7 @@ func (w *Watcher) AddWith(name string, opts ...addOpt) error {
 	_ = getOptions(opts...)
 
 	var flags uint32 = unix.IN_MOVED_TO | unix.IN_MOVED_FROM |
-		unix.IN_CREATE | unix.IN_ATTRIB | unix.IN_MODIFY |
+		unix.IN_CREATE | unix.IN_ATTRIB | unix.IN_MODIFY | unix.IN_CLOSE_WRITE |
 		unix.IN_MOVE_SELF | unix.IN_DELETE | unix.IN_DELETE_SELF
 
 	return w.watches.updatePath(name, func(existing *watch) (*watch, error) {
@@ -576,6 +578,9 @@ func (w *Watcher) newEvent(name string, mask uint32) Event {
 	}
 	if mask&unix.IN_ATTRIB == unix.IN_ATTRIB {
 		e.Op |= Chmod
+	}
+	if mask&unix.IN_CLOSE_WRITE == unix.IN_CLOSE_WRITE {
+		e.Op |= Close
 	}
 	return e
 }

@@ -3,6 +3,7 @@ package fsnotify
 import (
 	"errors"
 	"fmt"
+	"github.com/jalin107/fsnotify/internal"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -15,8 +16,6 @@ import (
 	"syscall"
 	"testing"
 	"time"
-
-	"github.com/fsnotify/fsnotify/internal"
 )
 
 // Set soft open file limit to the maximum; on e.g. OpenBSD it's 512/1024.

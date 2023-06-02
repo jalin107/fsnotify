@@ -60,6 +60,9 @@ const (
 	// get triggered very frequently by some software. For example, Spotlight
 	// indexing on macOS, anti-virus software, backup software, etc.
 	Chmod
+
+	// File write completed successfully
+	Close
 )
 
 // Common errors that can be reported.
@@ -85,6 +88,9 @@ func (o Op) String() string {
 	}
 	if o.Has(Chmod) {
 		b.WriteString("|CHMOD")
+	}
+	if o.Has(Close) {
+		b.WriteString("|CLOSE")
 	}
 	if b.Len() == 0 {
 		return "[no events]"

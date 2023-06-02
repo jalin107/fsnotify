@@ -1,10 +1,9 @@
 package main
 
 import (
+	"github.com/jalin107/fsnotify"
 	"os"
 	"path/filepath"
-
-	"github.com/fsnotify/fsnotify"
 )
 
 // Watch one or more files, but instead of watching the file directly it watches

@@ -2,6 +2,7 @@ package fsnotify
 
 import (
 	"fmt"
+	"github.com/jalin107/fsnotify/internal"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -11,8 +12,6 @@ import (
 	"sync"
 	"testing"
 	"time"
-
-	"github.com/fsnotify/fsnotify/internal"
 )
 
 type testCase struct {

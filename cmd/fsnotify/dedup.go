@@ -1,11 +1,10 @@
 package main
 
 import (
+	"github.com/jalin107/fsnotify"
 	"math"
 	"sync"
 	"time"
-
-	"github.com/fsnotify/fsnotify"
 )
 
 // Depending on the system, a single "write" can generate many Write events; for
